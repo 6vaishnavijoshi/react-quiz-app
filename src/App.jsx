@@ -1,4 +1,9 @@
+import { useState } from "react";
+
 function App() {
+  const [currentQuestion, setCurrentQuestion] =
+    useState(0);
+
   const questions = [
     {
       question: "What is React?",
@@ -28,10 +33,10 @@ function App() {
       <h1>React Quiz App</h1>
 
       <h2>
-        {questions[0].question}
+        {questions[currentQuestion].question}
       </h2>
 
-      {questions[0].options.map(
+      {questions[currentQuestion].options.map(
         (option) => (
           <button key={option}>
             {option}
@@ -42,7 +47,20 @@ function App() {
       <br />
       <br />
 
-      <button>Next</button>
+      <button
+        onClick={() => {
+          if (
+            currentQuestion <
+            questions.length - 1
+          ) {
+            setCurrentQuestion(
+              currentQuestion + 1
+            );
+          }
+        }}
+      >
+        Next
+      </button>
     </div>
   );
 }
