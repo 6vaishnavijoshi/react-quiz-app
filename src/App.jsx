@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.css";
 
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -63,52 +64,64 @@ function App() {
 
   if (currentQuestion >= questions.length) {
     return (
-      <div>
-        <h1>🎉 Quiz Completed!</h1>
+      <div className="app">
+        <div className="quiz-card">
+          <h1>🎉 Quiz Completed!</h1>
 
-        <h2>
-          Final Score: {score} / {questions.length}
-        </h2>
+          <h2>
+            Final Score: {score} / {questions.length}
+          </h2>
 
-        <button onClick={restartQuiz}>
-          Restart Quiz
-        </button>
+          <button
+            className="restart-btn"
+            onClick={restartQuiz}
+          >
+            Restart Quiz
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1>React Quiz App</h1>
+    <div className="app">
+      <div className="quiz-card">
+        <h1>React Quiz App</h1>
 
-      <h2>
-        {questions[currentQuestion].question}
-      </h2>
+        <h2>
+          {questions[currentQuestion].question}
+        </h2>
 
-      {questions[currentQuestion].options.map(
-        (option) => (
-          <div key={option}>
+        {questions[currentQuestion].options.map(
+          (option) => (
             <button
+              key={option}
+              className="option-btn"
               onClick={() =>
                 checkAnswer(option)
               }
             >
               {option}
             </button>
-          </div>
-        )
-      )}
+          )
+        )}
 
-      <p>
-        Selected Answer:
-        {selectedAnswer || " None"}
-      </p>
+        <p>
+          Selected Answer:
+          {selectedAnswer || " None"}
+        </p>
 
-      <h3>Score: {score}</h3>
+        <h3 className="score">
+          Score: {score}
+        </h3>
 
-      <button onClick={nextQuestion}>
-        Next
-      </button>
+        <button
+          className="next-btn"
+          onClick={nextQuestion}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
