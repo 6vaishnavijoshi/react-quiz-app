@@ -51,11 +51,31 @@ function App() {
   };
 
   const nextQuestion = () => {
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-      setSelectedAnswer("");
-    }
+    setCurrentQuestion(currentQuestion + 1);
+    setSelectedAnswer("");
   };
+
+  const restartQuiz = () => {
+    setCurrentQuestion(0);
+    setScore(0);
+    setSelectedAnswer("");
+  };
+
+  if (currentQuestion >= questions.length) {
+    return (
+      <div>
+        <h1>🎉 Quiz Completed!</h1>
+
+        <h2>
+          Final Score: {score} / {questions.length}
+        </h2>
+
+        <button onClick={restartQuiz}>
+          Restart Quiz
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div>
