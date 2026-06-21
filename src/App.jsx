@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 function App() {
-  const [currentQuestion, setCurrentQuestion] =
-    useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState("");
 
   const questions = [
     {
@@ -11,9 +12,9 @@ function App() {
         "Java",
         "Python",
         "JavaScript Library",
-        "C++"
+        "C++",
       ],
-      answer: "JavaScript Library"
+      answer: "JavaScript Library",
     },
 
     {
@@ -22,11 +23,39 @@ function App() {
         "Google",
         "Facebook",
         "Microsoft",
-        "Amazon"
+        "Amazon",
       ],
-      answer: "Facebook"
-    }
+      answer: "Facebook",
+    },
+
+    {
+      question: "Which hook is used for state?",
+      options: [
+        "useEffect",
+        "useState",
+        "useRef",
+        "useMemo",
+      ],
+      answer: "useState",
+    },
   ];
+
+  const checkAnswer = (option) => {
+    if (selectedAnswer) return;
+
+    setSelectedAnswer(option);
+
+    if (option === questions[currentQuestion].answer) {
+      setScore(score + 1);
+    }
+  };
+
+  const nextQuestion = () => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setSelectedAnswer("");
+    }
+  };
 
   return (
     <div>
@@ -38,27 +67,26 @@ function App() {
 
       {questions[currentQuestion].options.map(
         (option) => (
-          <button key={option}>
-            {option}
-          </button>
+          <div key={option}>
+            <button
+              onClick={() =>
+                checkAnswer(option)
+              }
+            >
+              {option}
+            </button>
+          </div>
         )
       )}
 
-      <br />
-      <br />
+      <p>
+        Selected Answer:
+        {selectedAnswer || " None"}
+      </p>
 
-      <button
-        onClick={() => {
-          if (
-            currentQuestion <
-            questions.length - 1
-          ) {
-            setCurrentQuestion(
-              currentQuestion + 1
-            );
-          }
-        }}
-      >
+      <h3>Score: {score}</h3>
+
+      <button onClick={nextQuestion}>
         Next
       </button>
     </div>
